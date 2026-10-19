@@ -1,5 +1,6 @@
 import { useLayoutEffect, useRef, useState } from 'react'
 import LiquidGlass from 'liquid-glass-react'
+import { useMotion } from '../ui/motion'
 
 /** Constant pointer values: passing both props makes liquid-glass-react skip its own mousemove listeners. */
 const STILL_POS = { x: 0, y: 0 }
@@ -10,7 +11,7 @@ interface Props {
   /** backdrop blur strength, in the library's own units */
   blur?: number
   displacement?: number
-  /** disable refraction/elasticity when the user prefers reduced motion */
+  /** override the reduced-motion setting (defaults to the app-wide value) */
   still?: boolean
 }
 
@@ -20,7 +21,9 @@ interface Props {
  * measures the parent and gives the library an empty child of exactly that size. Real content
  * stays in normal flow above the layer.
  */
-export default function LiquidLayer({ radius = 20, blur = 0.25, displacement = 36, still = false }: Props) {
+export default function LiquidLayer({ radius = 20, blur = 0.25, displacement = 36, still }: Props) {
+  const { reduced } = useMotion()
+  const calm = still ?? reduced
   const ref = useRef<HTMLDivElement>(null)
   const [size, setSize] = useState<{ w: number; h: number } | null>(null)
 
@@ -47,8 +50,8 @@ export default function LiquidLayer({ radius = 20, blur = 0.25, displacement = 3
           elasticity={0}
           blurAmount={blur}
           saturation={150}
-          displacementScale={still ? 0 : displacement}
-          aberrationIntensity={still ? 0 : 1.5}
+          displacementScale={calm ? 0 : displacement}
+          aberrationIntensity={calm ? 0 : 1.5}
           globalMousePos={STILL_POS}
           mouseOffset={STILL_OFFSET}
         >
