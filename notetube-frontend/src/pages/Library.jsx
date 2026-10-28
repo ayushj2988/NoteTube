@@ -4,7 +4,7 @@ import { api } from '../api.js'
 import { useAsync } from '../useAsync.js'
 import { Empty, ErrorBox, Loading } from '../components/States.jsx'
 import NoteRows from '../components/NoteRows.jsx'
-import ConfirmDialog from '../components/confirmdialog.jsx'
+import ConfirmDialog from '../components/ConfirmDialog.jsx'
 
 // Search and filter every saved note. The search waits a moment after typing so the server is not asked on every key.
 export default function Library() {
