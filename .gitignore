@@ -1,18 +1,46 @@
+
 # Dependencies
 node_modules/
+frontend/node_modules/
+backend/node_modules/
 
-# Environment secrets
+# Environment files and secrets
 .env
 .env.*
 !.env.example
 
-# Build outputs
+# Build output
+frontend/dist/
+backend/target/
 dist/
 build/
-coverage/
 
 # Logs
 *.log
+npm-debug.log*
 
-# ZIP backups
-*.zip
+# IDE and operating system
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Local databases and temporary files
+*.sqlite
+*.sqlite3
+*.db
+tmp/
+temp/
+
+# Python artifacts, if any
+__pycache__/
+*.py[cod]
+.venv/
+
+# Generated model files
+*.pkl
+*.joblib
+
+
+/bkend/
+/OLD/

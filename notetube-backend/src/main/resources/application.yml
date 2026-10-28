@@ -1,0 +1,49 @@
+spring:
+  application:
+    name: notetube
+  profiles:
+    default: h2            # zero-setup: embedded file database in ./data. Use SPRING_PROFILES_ACTIVE=postgres for PostgreSQL.
+  config:
+    # Spring does not read .env by itself. A .env file is valid .properties syntax,
+    # so importing it makes ${PORT}, ${DATABASE_URL}... resolve from it. Real OS env vars still work.
+    import: "optional:file:.env[.properties]"
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+  web:
+    resources:
+      add-mappings: false      # unknown routes raise an exception our JSON handler catches
+  servlet:
+    multipart:
+      enabled: false
+
+server:
+  port: ${PORT:8787}
+  tomcat:
+    max-swallow-size: 3MB
+
+logging:
+  level:
+    root: ${LOG_LEVEL:info}
+
+app:
+  environment: ${NODE_ENV:development}
+  database-url: ${DATABASE_URL:}
+  frontend-url: ${FRONTEND_URL:http://localhost:5173}
+  session-secret: ${SESSION_SECRET:}
+  session-days: ${SESSION_DAYS:30}
+  google-client-id: ${GOOGLE_CLIENT_ID:}
+  gemini-api-key: ${GEMINI_API_KEY:}
+  gemini-model: ${GEMINI_MODEL:gemini-3.6-flash}
+  youtube-api-key: ${YOUTUBE_API_KEY:}
+  daily-generation-limit: ${DAILY_GENERATION_LIMIT:5}
+  max-video-minutes: ${MAX_VIDEO_MINUTES:240}
+  trust-proxy: ${TRUST_PROXY:false}
+  worker-concurrency: ${WORKER_CONCURRENCY:2}
+  gemini-max-rpm: ${GEMINI_MAX_RPM:10}
+  auth-rate-limit: ${AUTH_RATE_LIMIT:10}      # per IP per 15 minutes (optional override, mainly for tests)
+  note-rate-limit: ${NOTE_RATE_LIMIT:3}       # note creations per user per minute (optional override)

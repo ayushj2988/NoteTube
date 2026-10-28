@@ -1,0 +1,6 @@
+# Optional dev profile: SPRING_PROFILES_ACTIVE=h2  (no PostgreSQL needed)
+spring:
+  datasource:
+    url: jdbc:h2:file:./data/notetube;MODE=PostgreSQL;DB_CLOSE_DELAY=-1
+    username: sa
+    password: ""
