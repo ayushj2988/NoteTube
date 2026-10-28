@@ -1,0 +1,6 @@
+{
+  "rewrites": [
+    { "source": "/api/:path*", "destination": "https://provide-feof-attacks-lover.trycloudflare.com" },
+    { "source": "/((?!api/).*)", "destination": "/index.html" }
+  ]
+}

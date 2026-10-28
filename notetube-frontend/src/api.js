@@ -11,7 +11,7 @@ export class ApiError extends Error {
 async function request(path, { method = 'GET', body } = {}) {
   let res
   try {
-    res = await fetch('/api' + path, {
+    res = await fetch('/api' + path, {  
       method,
       credentials: 'same-origin',
       headers: body ? { 'content-type': 'application/json' } : undefined,
